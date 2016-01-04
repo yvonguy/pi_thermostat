@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Thermometer: {{ name }} - Identifier: {{ identifier }}</h1>
+  <div><a href="/therm/{{ identifier }}/rename">Rename</a><div>
+  <div>Count: {{ count }}</div>
+  <table border="1">
+    <tr>
+      <th>Celcius</th>
+      <th>Datetime (UTC)</th>
+    </tr>
+    {% for reading in readings %}
+      <tr>
+        <td>{{ reading.celcius }}</td>
+        <td>{{ reading.datetime }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

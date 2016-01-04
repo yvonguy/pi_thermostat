@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv='content-type' content='text/html; charset=utf-8' />
+
+    <title>Embed Demo</title>
+    {{ js_resources|indent(4)|safe }}
+
+    {{ css_resources|indent(4)|safe }}
+
+    {{ plot_script|indent(4)|safe }}
+  </head>
+  <body>
+    <! A simple form for changing the graph>
+    <p> Select your settings: </p>
+    <form name="color_button" method='GET'>
+        Color: 
+        <select name="color">
+            <option value="Red">Red</option>
+            <option value="Green">Green</option>
+            <option value="Blue">Blue</option>
+            <option selected="selected" value="Black">Black</option>
+        </select>
+        <br>
+        Start of plot:
+        <input type="text" name="start" value="{{ start }}"> (hours)
+        <br>
+        End of plot:
+        <input type="text" name="end" value="{{ end }}"> (hours)
+        <br>
+        Sunrise:
+        <input type="text" name="sunrise" value="{{ sunrise }}"> (hour)
+        <br>
+        Sunset:
+        <input type="text" name="sunset" value="{{ sunset }}"> (hour)
+        <br>
+        Max Daily Temp:
+        <input type="text" name="T_max" value="{{ T_max }}"> (C)
+        <br>
+        Min Daily Temp:
+        <input type="text" name="T_min" value="{{ T_min }}"> (C)
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    {{ plot_div|indent(4)|safe }}
+    <p> Demonstrates some very simple embedding into a webpage</p>
+  </body>
+</html>

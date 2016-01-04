@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Hello, {{ user.nickname }}!</h1>
+  <table border="1">
+    <tr>
+      <th>Identifier</th>
+      <th>Name</th>
+      <th>Celcius</th>
+    </tr>
+  {% for reading in readings %}
+    <tr>
+      <td><a href="/therm/{{reading.ident}}">{{ reading.ident }}</a></td>
+      <td><a href="/therm/{{reading.ident}}/rename">{{ reading.name }}</a></td>
+      <td>{{ reading.celcius }}</td>
+    </tr>
+  {% endfor %}
+  </table>
+{% endblock %}

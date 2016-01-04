@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Thermometer: {{ name }} - Identifier: {{ identifier }}</h1>
+<form action="" method="post" name="rename'>
+  {{ form.hidden_tag() }}
+  <p>
+    Please enter a new name:<br>
+    {{ form.name(size=80) }}<br>
+  </p>
+  <p><input type="submit" value="Apply"></p>
+</form>
+{% endblock %}
