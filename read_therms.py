@@ -58,7 +58,7 @@ def main():
         saveTemperaturesToDb(db, therms)
         #update heaters...
 
-        #db.close()
+        db.close()
         logging.info("Shutting down")
     except Exception, e:
         logging.exception(e)

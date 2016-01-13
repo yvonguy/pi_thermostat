@@ -9,9 +9,10 @@ from bokeh.plotting import figure, output_file, show
 
 @app.route('/')
 @app.route('/index')
+@app.route('/therms')
 def index():
     user = {'nickname': 'Yvon'}
-    theDb = DB('therm.db')
+    theDb = app.get_db() #DB('therm.db')
     therms = theDb.readThermometers()
     thermReadings = []
     for therm in therms:
@@ -30,7 +31,7 @@ def index():
 
 @app.route('/therm/<identifier>')
 def therm(identifier):
-    theDb = DB('therm.db')
+    theDb = app.get_db() #DB('therm.db')
     therm = theDb.getThermometer(identifier)
     rawReadings = theDb.getTemperatureReadings(identifier)
     count = len(rawReadings)
@@ -49,7 +50,7 @@ def therm(identifier):
 
 @app.route('/therm/<identifier>/rename', methods=['GET', 'POST'])
 def therm_rename(identifier):
-    theDb = DB('therm.db')
+    theDb = app.get_db() #DB('therm.db')
     therm = theDb.getThermometer(identifier)
     form = ThermometerRenameForm()
     if form.validate_on_submit():

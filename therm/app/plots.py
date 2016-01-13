@@ -14,7 +14,7 @@ from __future__ import print_function
 
 import flask
 import datetime
-from datetime import datetime, date, time, deltatime
+from datetime import datetime, date, time
 from therm.app import app
 
 from bokeh.embed import components

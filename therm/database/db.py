@@ -51,6 +51,9 @@ class DB:
         ''')
         self._connection.commit()
 
+    def close(self):
+        self._connection.close()
+
     def reset(self):
         # dangerous call: clears all data
         cursor = self._connection.cursor()
