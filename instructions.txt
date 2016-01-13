@@ -1,0 +1,24 @@
+# Assuming the clone is in a sub-folder called 'v1'
+# Give access to the www-data user to the db file
+# Add user www-data to the pi group
+usermod -a -G pi www-data
+
+# Give write access to the db files and its parent directory
+chmod 664 v1/therm.db
+chmod 775 v1
+
+# Copy therm.conf to /etc/apache2/sites-available
+# make it the only site removing the default site from Apache
+cp v1/therm.conf /etc/apache2/sites-available
+a2ensite therm.conf
+a2dissite 000-default.conf
+sudo service apache2 reload
+
+# Create a cron job that will check the thermometers
+sudo crontab -e
+# and add this line at the bottom
+* * * * * /home/pi/v1/read_therms.sh
+
+# Todo:
+# 1. Deploy the app to Apache
+# 2. move the crontab under a new username (e.g. www-data)
