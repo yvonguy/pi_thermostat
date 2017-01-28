@@ -9,6 +9,13 @@ import therm.model.thermometer as T
 def InitTestDB():
     callerName = inspect.stack()[1][3]
     dbPathname = os.path.dirname(db.__file__) + '/test_data/' + callerName + '.db'
+    dbDir = os.path.dirname(dbPathname)
+    # make sure dir exists
+    try:
+        os.stat(dbDir)
+    except:
+        os.mkdir(dbDir)
+
     try:
         testDb = db.DB(dbPathname)
         testDb.reset()
