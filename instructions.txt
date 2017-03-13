@@ -1,3 +1,7 @@
+# Install Apache 2
+# https://wiki.debian.org/Apache
+sudo apt-get install apache2
+
 # Assuming the clone is in a sub-folder called 'v1'
 # Give access to the www-data user to the db file
 # Add user www-data to the pi group
