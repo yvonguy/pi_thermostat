@@ -49,6 +49,14 @@ class DB:
                 FOREIGN KEY(thermometer_identifier) REFERENCES thermometers(identifier)
             );
         ''')
+        cursor.execute('''
+            CREATE INDEX IF NOT EXISTS temperature_reading_thermometer_identifier_index
+            ON temperature_reading(thermometer_identifier)
+        ''')
+        cursor.execute('''
+            CREATE INDEX IF NOT EXISTS temperature_reading_created_at_index
+            ON temperature_reading(created_at)
+        ''')
         self._connection.commit()
 
     def close(self):
