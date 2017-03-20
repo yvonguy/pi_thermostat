@@ -23,6 +23,10 @@ sudo crontab -e
 # and add this line at the bottom
 * * * * * /home/pi/v1/read_therms.sh
 
+# python packages
+sudo apt-get install python-memcache
+sudo pip install sh
+
 # Todo:
 # 1. Deploy the app to Apache
 # 2. move the crontab under a new username (e.g. www-data)

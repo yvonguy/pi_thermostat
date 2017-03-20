@@ -21,6 +21,13 @@ class DB:
             );
         ''')
         cursor.execute('''
+            CREATE TABLE IF NOT EXISTS configurations
+            (
+                name TEXT PRIMARY KEY NOT NULL,
+                value TEXT
+            );
+        ''')
+        cursor.execute('''
             CREATE TABLE IF NOT EXISTS thermometers
             (
                 identifier TEXT PRIMARY KEY NOT NULL,
@@ -76,11 +83,40 @@ class DB:
             DROP TABLE thermometers;
         ''')
         cursor.execute('''
+            DROP TABLE configurations;
+        ''')
+        cursor.execute('''
             DROP TABLE zones;
         ''')
         self._connection.commit()
         self._initialize()
-        
+
+    def setConfig(self, name, value):
+        cursor = self._connection.cursor()
+        cursor.execute('''
+            INSERT OR REPLACE INTO configurations
+            (name, value) VALUES (?, ?)
+        ''', (name, value))
+        self._connection.commit()
+
+    def getConfig(self, name):
+        cursor = self._connection.cursor()
+        cursor.execute('''
+            SELECT value FROM configurations
+            WHERE name = (?)
+        ''', (name, ))
+        for row in cursor:
+            return row[0]
+        return None
+
+    def setConfigDate(self, name, value):
+        self.setConfig(name, str(value))
+
+    def getConfigDate(self, name):
+        strValue = self.getConfig(name)
+        if strValue is not None:
+            return datetime.strptime(strValue, '%Y-%m-%d %H:%M:%S.%f')
+        return None
 
     def saveThermometers(self, therms):
         cursor = self._connection.cursor()

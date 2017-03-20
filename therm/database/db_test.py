@@ -20,7 +20,7 @@ def InitTestDB():
         testDb = db.DB(dbPathname)
         testDb.reset()
     except Exception, e:
-        assert e != None, dbPathname
+        assert e == None, dbPathname
     return testDb, dbPathname
 
 class TestDB:
@@ -38,7 +38,8 @@ class TestDB:
             zones = False,
             temperature_reading = False,
             thermometers = False,
-            join_thermometer_zone = False)
+            join_thermometer_zone = False,
+            configurations = False)
 
         count = 0
         for row in cursor:
@@ -181,3 +182,29 @@ class TestDB:
             assert reading[0] == (2000 + i)
             i += 1
             
+    def test_getAndSetConfigurationValues(self):
+        (thermDb, dbName) = InitTestDB()
+
+        now = datetime.now()
+        nowStr = str(now)
+        #set a config value
+        thermDb.setConfig('TEST_CONFIG_TIME', nowStr) 
+
+        valueStr = thermDb.getConfig('TEST_CONFIG_TIME')
+        assert nowStr == valueStr
+
+        value = datetime.strptime(valueStr, '%Y-%m-%d %H:%M:%S.%f')
+        assert now == value
+
+    def test_getAndSetConfigurationDates(self):
+        (thermDb, dbName) = InitTestDB()
+
+        now = datetime.now()
+        thermDb.setConfigDate('TEST_CONFIG_DATE', now)
+
+        value = thermDb.getConfigDate('TEST_CONFIG_DATE')
+        assert now == value
+
+        #validate that no date value is None
+        value = thermDb.getConfigDate('TEST_NO_VALUE')
+        assert value == None
