@@ -1,4 +1,0 @@
-import sh
-
-class Shell:
-
