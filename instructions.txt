@@ -24,6 +24,18 @@ sudo crontab -e
 * * * * * /home/pi/v1/read_therms.sh
 
 # python packages
+sudo pip install flask # got errors but successfully installed???
+# prerequisits to Bokeh http://bokeh.pydata.org/en/latest/docs/installation.html
+sudo pip install NumPy # already installed
+sudo pip install Jinja2 # already installed
+sudo pip install Six # already installed
+sudo pip install Requests # already installed
+sudo pip install Tornado
+sudo pip install PyYaml
+sudo pip install python-dateutil
+sudo pip install bokeh
+
+
 sudo apt-get install python-memcache
 sudo pip install sh
 

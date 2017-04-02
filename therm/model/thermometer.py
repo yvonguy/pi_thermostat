@@ -45,11 +45,15 @@ class Thermometer:
         equals_pos = lines[1].find('t=')
         if equals_pos != -1:
             temp_string = lines[1][equals_pos+2:]
-            return int(temp_string)
+            self._lastRawTemp = int(temp_string)
+            return self._lastRawTemp
         return None
 
     def getTemperature(self):
         return Temperature(self.getRawTemperature())
+
+    def getLastTemperature(self):
+        return Temperature(self._lastRawTemp)
 
 def get_thermometers_from_os():
     base_dir = '/sys/bus/w1/devices/'

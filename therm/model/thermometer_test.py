@@ -26,3 +26,16 @@ class TestThermometer:
         therm = Thermometer("FOODNAME")
         assert type('string') == type(therm.getIdentifier())
         
+    def test_readLastTemp(self):
+        therms = T.get_thermometers_from_os()
+        assert len(therms) > 0
+        thermsTemps = dict()
+        for therm in therms:
+            t = therm.getTemperature()
+            assert t.getKelvin() > 0
+            thermsTemps[therm.getIdentifier()] = t
+
+        for therm in therms:
+            t = therm.getLastTemperature()
+            assert t.getKelvin() > 0
+            assert thermsTemps[therm.getIdentifier()].getKelvin() == t.getKelvin()
